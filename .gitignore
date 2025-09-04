@@ -14,3 +14,11 @@ node_modules
 
 # .DS_Store is only for Mac users
 **/.DS_Store
+
+# adding the readme file to the .gitignore 
+# for git to ignore it on the next commit.
+README.md 
+
+# The pnpm-lock.yaml file will be 
+# included so that git ignores it
+pnpm-lock.yaml
