@@ -4,3 +4,206 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  width: 100%;
+  height: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.icon_name_container > img, h1 {
+  margin: 2px;
+  padding: 2px;
+}
+
+.sitename > a {
+  text-decoration: none;
+}
+
+.icon_name_container > h1{
+  font-family: "Oswald";
+  text-align: center;
+  color: #009ddc;
+}
+
+.icon_name_container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#top-header {
+  position: relative;
+}
+
+#tools {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  
+}
+
+#tools .links {
+  text-align: center;
+  text-decoration: none;
+  color: #076489;
+  font-family: "arimo";
+  padding: 2% 0;
+}
+nav ul li {
+  text-decoration: none;
+  list-style-type: none;
+  padding: 6px;
+  font-family: "arimo";
+  font-size: medium;
+  color: #f1f1f1;
+
+}
+
+nav > ul {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  background-color: #0b0014;
+  align-items: center;
+  padding: 8px;
+}
+
+/* The css code for the body will begin from here now.
+The hero section will come next. 
+*/
+
+.welcome {
+  color: #004e98;
+  font-family: "Oswald";
+}
+
+.hero_section > img {
+  width: 90%;
+  height: auto;
+  text-align: center;
+}
+
+#hero_section {
+  position: relative;
+  
+}
+
+#hero_information_card {
+  position: absolute;
+  top: 1%;
+  left: 4%;
+  margin: 4px auto;
+  padding: 6px;
+  background-color: rgba(222, 222, 222, 0.7);
+}
+
+#hero_information_card > div > h3 {
+  font-family: "Oswald";
+  color: #009ddc;
+  padding: 2px;
+  margin: 0;
+
+}
+
+#hero_information_card > div > p {
+  font-family: "arimo";
+  margin: 0 auto;
+  padding: 2px;
+  color: #0977ec;
+  font-weight: bold;
+}
+
+#hero_information_card > a {
+  margin-bottom: 0;
+
+}
+#hero_information_card > a > img {
+  margin-bottom: 0;
+  width: 130px;
+  text-align: left;
+  margin-top: 4px;
+}
+
+#upgrades_review_flex {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}
+
+/* The next section will be the Grid upgrades section. */
+#upgrades_section {
+  width: 100%;
+  height: auto;
+}
+
+#upgrades_section > h3 {
+  font-family: "Oswald";
+  color: #009ddc;
+  padding: 2px;
+  margin: 1em auto;
+}
+
+#upgrades_grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  justify-content: space-around;  
+  background-color: #e8e2e2;
+  padding: 1em;
+}
+.image_grid_div {
+  background-color: #004e98;
+  width: 100%;
+  height: auto;
+}
+.image_grid_div > img {
+  text-align: center;
+  width: 70%;
+  height: auto;
+  margin: 10px;
+
+}
+
+#upgrades_grid > div > a {
+  font-family: "arimo";
+}
+
+#review_section > h3 {
+  font-family: "Oswald";
+  color: #009ddc;
+  padding: 2px;
+  margin: 1em auto;
+}
+#review_section > ul > li {
+  font-family: "arimo";
+  font-size: medium;
+  margin: 2em 0;
+}
+
+
+
+@media only screen and (min-width: 64em){
+  body {
+    background-image: url("/images/site/small_check.jpg");
+  }
+
+  #wrapper{
+    max-width: 1000px;
+    margin: 2em auto;
+    background-color: #ffffff;
+    border: 6px solid #0977ec;
+    border-radius: 5px;
+    padding: 1em;
+  }
+
+  #upgrades_review_flex {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  #upgrades_grid, #review_section {
+    width: 50%;
+  }
+}
