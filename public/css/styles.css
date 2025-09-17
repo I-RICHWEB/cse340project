@@ -50,7 +50,7 @@ body {
   font-family: "arimo";
   padding: 2% 0;
 }
-nav ul li {
+nav > ul > li > a {
   text-decoration: none;
   list-style-type: none;
   padding: 6px;
