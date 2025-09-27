@@ -319,12 +319,14 @@ The hero section will come next.
 }
 .reg {
   font-family: 'Oswald';
+  text-align: left;
 }
 #req {
   font-family: 'arimo';
   font-style: italic;
   font-size: smaller;
   color: rgb(255, 54, 37);
+  text-align: left;
 }
 
 /* flash message css declarations.*/
