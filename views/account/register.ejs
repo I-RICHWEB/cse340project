@@ -1,0 +1,51 @@
+<!-- Inserting the main content headings  -->
+<!-- And making the title value as our h1 value with an if statement. -->
+<% if (title) { %>
+<h1 class="page_head"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- This is to display success or failed attempt of the registeration process. -->
+<%- messages() %>
+
+<!-- This is to display a validation failed messages -->
+ <% if (errors) { %>
+  <ul class="notice failed">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<!-- The registeration form -->
+<div id="form_container" class="form_holder">
+
+     <h2 class="reg">Register</h2>
+
+     <p id="req">All fields are required</p>
+ 
+    <form id="register_form" action="/account/register" method="post" >
+
+        <label for="fname" class="form label">First Name:</label>
+        <input type="text" id="fname" class="form input" name="account_firstname" required>
+
+        <label for="lname" class="form label">Last Name:</label>
+        <input type="text" id="lname" class="form input" name="account_lastname" required>
+
+        <label for="email" class="form label">Email:</label>
+        <input type="email" id="email" class="form input" name="account_email" required>
+
+        <label for="password" class="form label">Password:</label>
+        <input type="password" id="password" class="form input" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+
+        <p class="pattern">Password must be a minimum of 12 character in lenght, at least 1 capital letter,
+            at least 1 number, and at least 1 special character.
+        </p>
+
+        <!-- <span id="show_p" class="show_password">Show Password</span> -->
+ 
+        <input type="submit" id="register" class="form_done" name="submit_button" value="Register">
+    </form>
+
+</div>

@@ -260,6 +260,94 @@ The hero section will come next.
 
 
 
+
+
+/* **************************************
+* This is the css code for the account view page.
+* ************************************* */
+#form_container {
+  margin: 5rem 3rem;
+  background-color: #f3f3f3;
+  padding: 3rem;
+  border-radius: 6px;
+}
+#login_form, #register_form {
+  text-align: center;
+  border-radius: 5px;
+  padding: 2rem;
+}
+.form {
+  display: block;
+  margin: 4px 0 ;
+  padding: 4px;
+  text-align: left;
+  font-family: 'arimo';
+}
+.input {
+  width: 90%;
+  padding: .5rem;
+  border-radius: 5px;
+}
+.form_done {
+  width: 40%;
+  color: #ffffff;
+  background-color: #6c05c0;
+  text-align: center;
+  font-family: 'arimo';
+  font-size: medium;
+  margin: 2rem auto;
+  border: none;
+  padding: .5rem;
+  border-radius: 5px;
+}
+.form_done:hover {
+  background-color: #009ddc;
+}
+.page_head {
+  margin: auto;
+  color: #004e98;
+  font-family: 'Oswald';
+}
+#sign_up {
+  font-family: 'arimo';
+}
+.pattern {
+  font-family: 'arimo';
+  font-style: italic;
+  font-size: smaller;
+  text-align: left;
+}
+.reg {
+  font-family: 'Oswald';
+}
+#req {
+  font-family: 'arimo';
+  font-style: italic;
+  font-size: smaller;
+  color: rgb(255, 54, 37);
+}
+
+/* flash message css declarations.*/
+.successful {
+  width: 90%;
+  font-family: 'arimo';
+  padding: .5rem;
+  border: 1px solid #0b870b;
+  color: #0b870b;
+  border-radius: 4px;
+  margin: auto;
+}
+.failed {
+  width: 90%;
+  font-family: 'arimo';
+  padding: .5rem;
+  border: 1px solid #b50306;
+  color: #b50306;
+  border-radius: 4px;
+  margin: auto;
+}
+
+
 @media only screen and (min-width: 64em){
   body {
     background-image: url("/images/site/small_check.jpg");
@@ -289,5 +377,15 @@ The hero section will come next.
   * ************************************* */
   #inv_item {
   flex-direction: row;
+  }
+
+
+  /* **************************************
+* This is the css code for the account view page.
+* ************************************* */
+  #form_container {
+  width:60% ;
+  margin: 4rem auto;
+  text-align: center;
   }
 }
