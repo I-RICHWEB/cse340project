@@ -48,14 +48,17 @@ body {
   text-decoration: none;
   color: #076489;
   font-family: "arimo";
-  padding: 2% 0;
+  padding: .4rem 0;
+}
+nav > ul > li {
+  list-style-type: none;
 }
 nav > ul > li > a {
   text-decoration: none;
   list-style-type: none;
-  padding: 6px;
+  padding: .2rem;
   font-family: "arimo";
-  font-size: medium;
+  font-size: small;
   color: #f1f1f1;
 
 }
@@ -66,13 +69,12 @@ nav > ul {
   flex-direction: row;
   background-color: #0b0014;
   align-items: center;
-  padding: 8px;
+  padding: .3rem;
 }
 
 /* The css code for the body will begin from here now.
 The hero section will come next. 
 */
-
 .welcome {
   color: #004e98;
   font-family: "Oswald";
@@ -224,8 +226,7 @@ The hero section will come next.
 * This is the css code for the item view page that uses flex.
 * ************************************* */
 #inv_item {
-  padding: 2em;
-  margin: 1em;
+  padding: .2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -240,11 +241,8 @@ The hero section will come next.
 #item_details > h2 {
   font-family: "Oswald";
   color: #02325f; ;
-  /* font-size: xx-large; */
-  /* font-weight: 700; */
 }
 #item_details > ul {
-  /* background-color: #b6cae0; */
   margin: 0;
   padding: 1em;
   list-style-type: none;
@@ -257,9 +255,6 @@ The hero section will come next.
 #item_details > ul li:nth-child(even){
   background-color: #d9e4f0;
 }
-
-
-
 
 
 /* **************************************
@@ -325,7 +320,7 @@ The hero section will come next.
   font-family: 'arimo';
   font-style: italic;
   font-size: smaller;
-  color: rgb(255, 54, 37);
+  color: rgb(154, 16, 4);
   text-align: left;
 }
 
@@ -349,6 +344,46 @@ The hero section will come next.
   margin: auto;
 }
 
+/* **************************************
+* This is the css code for the vehicles management view page.
+* ************************************* */
+.add_item {
+  width: 45%;
+  text-align: center;
+  font-family: 'arimo';
+  display: block;
+  text-decoration: none;
+  padding: .5rem;
+  margin: 1.5rem auto;
+  border-radius: 4px;
+  color: #fff;
+}
+#add_classification {
+  background-color: #004e98;
+}
+#add_inventory {
+  background-color: #006c97;
+}
+#add_classification:hover {
+  background-color: #fff;
+  color: #0b0014;
+  border: 2px solid #004e98;
+}
+#add_inventory:hover {
+  background-color: #fff;
+  color: #0b0014;
+  border: 2px solid #009ddc;
+}
+
+input:focus:valid{
+  border: 2px solid green;
+  background-color: rgba(34, 225, 45, .4);
+}
+input:focus:invalid {
+  border: 2px solid red;
+  background-color: #ff000453;
+
+}
 
 @media only screen and (min-width: 64em){
   body {
