@@ -117,6 +117,54 @@ validate.checkInvData = async (req, res, next) => {
   next();
 };
 
+
+/* ******************************
+ * Check updated inventory data and return errors
+ * to edit view, or continue to add inventory
+ * ***************************** */
+validate.checkUpdatedData = async (req, res, next) => {
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_year,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList(classification_id)
+    res.render("inventory/update_inv", {
+      errors,
+      title: "Edit" + inv_make + " " + inv_model,
+      nav,
+      classificationList,
+      classification_id,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_year,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+    });
+    return;
+  }
+  next();
+};
+
+
+
 /*  **********************************
  *  classification Data Validation Rules
  * ********************************* */

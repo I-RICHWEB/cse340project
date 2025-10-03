@@ -1,18 +1,19 @@
 // Needed resources
-const express = require("express")
-const router = new express.Router()
-const invController = require("../controllers/invController")
-const utilities = require("../utilities/")
-const accountController = require("../controllers/accountController")
-const regValidate = require('../utilities/account-validation')
-
-
+const express = require("express");
+const router = new express.Router();
+const invController = require("../controllers/invController");
+const utilities = require("../utilities/");
+const accountController = require("../controllers/accountController");
+const regValidate = require("../utilities/account-validation");
 
 // The route to call the accountController to build the login page.
-router.get("/login", utilities.handleErrors(accountController.buildLogin))
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // The route to call the accountController to build the register page.
-router.get("/register", utilities.handleErrors(accountController.buildRegister))
+router.get(
+  "/register",
+  utilities.handleErrors(accountController.buildRegister)
+);
 
 // The route for the registeration post method.
 // Process the registration data
@@ -21,18 +22,19 @@ router.post(
   regValidate.registationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
-)
+);
 
 // Process the login attempt
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checklogData,
-  (req, res) => {
-    res.status(200).send('login process')
-  }
-)
+  utilities.handleErrors(accountController.accountLogin)
+);
 
-
+// Thw account management view route
+router.get("/", 
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildManagementView));
 
 module.exports = router;

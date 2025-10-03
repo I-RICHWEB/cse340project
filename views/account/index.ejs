@@ -1,0 +1,21 @@
+<!-- Inserting the main content headings  -->
+<!-- And making the title value as our h1 value with an if statement. -->
+<% if (title) { %>
+<h1 class="page_head"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+
+<%- messages() %>
+
+<!-- This is to display a validation failed messages -->
+ <% if (errors) { %>
+  <ul class="notice failed">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<p>You're logged in.</p>
