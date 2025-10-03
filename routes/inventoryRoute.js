@@ -52,7 +52,7 @@ router.post("/edit/",
 
 
 // The inventory delete route
-router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteInventoryConfirmation))
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteInventoryConfirmationView))
 
 // The inventory delete post route
 router.post("/delete", utilities.handleErrors(invController.deleteInventory))
