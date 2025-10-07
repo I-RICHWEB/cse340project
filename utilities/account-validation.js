@@ -171,7 +171,7 @@ validate.profileDetailsRules = () => {
         const emailExists = await accountModel.checkExistingEmail(
           account_email
         );
-        if (emailExists) {
+        if (emailExists && account_email !== emailExists[0].account_email) {
           throw new Error("Email exists. Please log in or use different email");
         }
       }),
