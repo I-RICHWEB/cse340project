@@ -1,7 +1,7 @@
 <!-- Inserting the main content headings  -->
 <!-- And making the title value as our h1 value with an if statement. -->
 <% if (title) { %>
-<h1><%= title %></h1>
+<h1 class="page_head"><%= title %></h1>
 <% } else { res.redirect('/') } %>
 
 <!-- This is to display a validation failed messages -->
@@ -130,10 +130,9 @@
     />
 
     <% if (locals.inv_id) { %>
-  <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
-<% } %>
+    <input type="hidden" name="inv_id" value="<%= locals.inv_id %>" />
+    <% } %>
   </form>
 </div>
-
 
 <script src="../../js/inv-update.js"></script>

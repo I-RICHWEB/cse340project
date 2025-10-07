@@ -176,12 +176,16 @@ Util.checkJWTToken = (req, res, next) => {
           res.clearCookie("jwt")
           return res.redirect("/account/login")
         }
+        req.accountData = accountData
+        req.loggedin = 1
         res.locals.accountData = accountData
         res.locals.loggedin = 1
         next()
       }
     )
   }else {
+    res.locals.accountData = null
+    res.locals.loggedin = 0
     next()
   }
 }
@@ -198,6 +202,7 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
 }
+
 
 
 

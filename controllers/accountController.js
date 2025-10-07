@@ -146,10 +146,140 @@ async function buildManagementView(req, res) {
   });
 }
 
+/* ****************************************
+ *  Deliver account update view
+ * *************************************** */
+async function buildUpdateView(req, res, next) {
+  let nav = await utilities.getNav();
+  const account_id = req.params.accountId;
+  const accountInfo = await accountModel.getAccountById(account_id);
+  res.render("account/update", {
+    title: "Updata Your Account",
+    nav,
+    errors: null,
+    account_firstname: accountInfo.account_firstname,
+    account_lastname: accountInfo.account_lastname,
+    account_email: accountInfo.account_email,
+    account_id: accountInfo.account_id,
+  });
+}
+
+/* ****************************************
+ *  Process the account update
+ * *************************************** */
+async function updateProfileInfo(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_id, account_firstname, account_lastname, account_email } =
+    req.body;
+
+  const updateResult = await accountModel.updateAccountById(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  );
+
+  if (updateResult) {
+    req.flash(
+      "notice successful",
+      `Your account information ${account_firstname} ${account_lastname} was successfully updated.`
+    );
+    res.redirect("/account/");
+  } else {
+    req.flash(
+      "notice failed",
+      "Sorry, the your account information update failed."
+    );
+    res.status(501).render("account/update", {
+      title: "Updata Your Account",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    });
+  }
+}
+
+/* ****************************************
+ *  Process the account password update
+ * *************************************** */
+async function changePassword(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_id, account_password } = req.body;
+  try {
+    // Hash the password before storing
+    let hashedPassword;
+    try {
+      // regular password and cost (salt is generated automatically)
+      hashedPassword = await bcrypt.hashSync(account_password, 10);
+    } catch (error) {
+        req.flash(
+          "notice failed",
+          "Sorry, there was an error processing the password update."
+        );
+        res.status(500).render("account/update", {
+          title: "Updata Your Account",
+          nav,
+          errors: null,
+          account_id,
+        });
+      }
+
+    const changePassword = await accountModel.updatePasswordById(
+      account_id,
+      hashedPassword
+    );
+    if (changePassword) {
+      req.flash(
+        "notice successful",
+        `Your account password was successfully updated.`
+      );
+      res.redirect("/account/");
+    } else {
+        req.flash(
+          "notice failed",
+          "Sorry, your account password update failed."
+        );
+        res.status(501).render("account/update", {
+          title: "Updata Your Account",
+          nav,
+          errors: null,
+          account_id,
+        });
+      }
+  } catch (error) {
+    throw new Error("Password update failed at hashing");
+  }
+}
+
+/* ****************************************
+ *  Process account logout
+ * *************************************** */
+async function accountLogout(req, res) {
+   if (req.cookies.jwt){
+
+    res.clearCookie("jwt")
+
+    req.flash("notice successful", "You have successfully logged out.")
+    return res.redirect("/")
+
+  }else {
+    req.flash("notice failed", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
+
+
 module.exports = {
   buildLogin,
   buildRegister,
   registerAccount,
   accountLogin,
   buildManagementView,
+  buildUpdateView,
+  updateProfileInfo,
+  changePassword,
+  accountLogout,
 };

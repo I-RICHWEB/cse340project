@@ -24,6 +24,13 @@ const cookieParser = require("cookie-parser")
 
 
 
+// app.use((req, res, next) => {
+  // res.locals.loggedin = req.session && req.session.loggedin
+  // next()
+// })
+
+
+
 /* ***********************
  * middleware
  *************************/
@@ -56,6 +63,9 @@ app.use(cookieParser())
 
 // JWT cookies check.
 app.use(utilities.checkJWTToken)
+
+
+
 
 
 /* ***********************

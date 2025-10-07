@@ -57,6 +57,7 @@ invCont.intentionalError = (req, res, next) => {
  * ********************************************** */
 invCont.buildManagementView = async function (req, res, next) {
   let nav = await utilities.getNav();
+  if (req.loggedin && req.accountData.account_type !== 'Client'){
   const classificationList = await utilities.buildClassificationList();
   res.render("./inventory/", {
     title: "Vehicles Management",
@@ -64,6 +65,18 @@ invCont.buildManagementView = async function (req, res, next) {
     errors: null,
     classificationList,
   });
+  }else {
+    req.flash(
+      "notice failed",
+      "Sorry, you don't have access to this area!."
+    );
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+    });
+  }
+  
 };
 
 /* ***********************************************

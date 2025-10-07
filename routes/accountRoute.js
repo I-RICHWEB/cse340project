@@ -33,8 +33,33 @@ router.post(
 );
 
 // Thw account management view route
-router.get("/", 
+router.get(
+  "/",
   utilities.checkLogin,
-  utilities.handleErrors(accountController.buildManagementView));
+  utilities.handleErrors(accountController.buildManagementView)
+);
+
+router.get(
+  "/update/:accountId",
+  utilities.handleErrors(accountController.buildUpdateView)
+);
+
+// Process the update profile information.
+router.post(
+  "/update-profile",
+  regValidate.profileDetailsRules(),
+  regValidate.checkUpdateData,
+  utilities.handleErrors(accountController.updateProfileInfo)
+);
+
+// Process the change password information update
+router.post(
+  "/change-password",
+  regValidate.changePasswordRules(),
+  regValidate.checkNewPassword,
+  utilities.handleErrors(accountController.changePassword)
+);
+
+router.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
 module.exports = router;

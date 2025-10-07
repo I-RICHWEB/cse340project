@@ -316,12 +316,30 @@ The hero section will come next.
   font-family: 'Oswald';
   text-align: left;
 }
-#req {
+.req {
   font-family: 'arimo';
   font-style: italic;
   font-size: smaller;
   color: rgb(154, 16, 4);
   text-align: left;
+}
+.show_password {
+  display: block;
+  margin: 0;
+  padding: .4rem;
+  border-radius: 4px;
+  background-color: #0b0014;
+  color: #f3f3f3;
+  text-align: center;
+  width: 35%;
+  font-family: 'arimo';
+  font-size: small;
+}
+.show_password:hover {
+  background-color: #d9e4f0;
+  border: 2px solid #0b0014;
+  color: #0b0014;
+  cursor: pointer;
 }
 
 /* flash message css declarations.*/
@@ -383,6 +401,55 @@ input:focus:invalid {
   border: 2px solid red;
   background-color: #ff000453;
 
+}
+
+/* the css rules for the account index page elements */
+.headers {
+  margin: 1rem .8rem;
+  color: #004e98;
+  font-family: 'Oswald';
+}
+.m_link {
+  margin: 0 1rem;
+  padding: .5rem;
+  border: 2px solid #0054af;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: .5rem;
+  text-align: center;
+  font-family: 'arimo';
+  color: #000;
+}
+
+/* The css rules for the inventory management table */
+.inv_table {
+  width: 60%;
+  text-align: left;
+  padding: .5rem;
+}
+tr {
+  padding: 1rem;
+  text-align: justify;
+}
+th {
+  color: #0054af;
+  padding: .4rem;
+  font-family: 'arimo';
+}
+td {
+  padding: .2rem;
+  font-family: 'arimo';
+}
+tbody > tr {
+  margin: .5rem;
+}
+.inv_modify {
+  text-decoration: none;
+  color: #034c6a;
+}
+.inv_delete {
+  text-decoration: none;
+  color: rgb(159, 6, 6);
 }
 
 @media only screen and (min-width: 64em){
