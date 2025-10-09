@@ -37,7 +37,7 @@ validate.registationRules = () => {
         const emailExists = await accountModel.checkExistingEmail(
           account_email
         );
-        if (emailExists.rowCount > 0) {
+        if (emailExists) {
           throw new Error("Email exists. Please log in or use different email");
         }
       }),
@@ -96,7 +96,7 @@ validate.loginRules = () => {
         const emailExists = await accountModel.checkExistingEmail(
           account_email
         );
-        if (emailExists.rowCount < 1) {
+        if (!emailExists) {
           throw new Error(
             "This Email does not exists. Please click the sign-up link to register or use different email"
           );
@@ -169,11 +169,11 @@ validate.profileDetailsRules =  (req, res) => {
       .normalizeEmail() // refer to validator.js docs
       .withMessage("A valid email is required.")
       .custom(async (account_email, {req}) => {
-        const account_id = req.body.account_id
+        const {account_id} = req.body
         const emailExists = await accountModel.checkExistingEmail(
           account_email
         );
-        if (emailExists > 0 && emailExists.account_id !== account_id) {
+        if (emailExists && emailExists.account_id !== parseInt(account_id)) {
           throw new Error("Email exists. Please use a different email");
         }
       }),
