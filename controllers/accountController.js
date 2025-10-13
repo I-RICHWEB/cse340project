@@ -332,7 +332,7 @@ async function changeForgotPassword(req, res, next) {
     } catch (error) {
       req.flash(
         "notice failed",
-        "Sorry, there was an error processing the password update."
+        "Sorry, there was an error processing the password change."
       );
       res.status(500).render("account/forget", {
         title: "Change Password",
