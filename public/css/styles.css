@@ -260,7 +260,7 @@ The hero section will come next.
 /* **************************************
 * This is the css code for the account view page.
 * ************************************* */
-#form_container {
+.form_holder {
   margin: 5rem 3rem;
   background-color: #f3f3f3;
   padding: 3rem;
@@ -284,7 +284,8 @@ The hero section will come next.
   border-radius: 5px;
 }
 .form_done {
-  width: 40%;
+  display: block;
+  width: 70%;
   color: #ffffff;
   background-color: #6c05c0;
   text-align: center;
@@ -324,8 +325,7 @@ The hero section will come next.
   text-align: left;
 }
 .show_password {
-  display: block;
-  margin: 0;
+  margin: .6rem 0;
   padding: .4rem;
   border-radius: 4px;
   background-color: #0b0014;
@@ -410,12 +410,12 @@ input:focus:invalid {
   font-family: 'Oswald';
 }
 .m_link {
-  margin: 0 1rem;
+  width: 50%;
+  margin: 0 .5rem;
   padding: .5rem;
   border: 2px solid #0054af;
   border-radius: 5px;
   text-decoration: none;
-  padding: .5rem;
   text-align: center;
   font-family: 'arimo';
   color: #000;
@@ -450,6 +450,39 @@ tbody > tr {
 .inv_delete {
   text-decoration: none;
   color: rgb(159, 6, 6);
+}
+
+/* The css rules for the forget password and account deletion began here */
+#forgetP {
+  margin: .6rem 1.2rem;
+  padding: .4rem;
+  color: #01021f;
+  text-align: center;
+  width: 35%;
+  font-family: 'arimo';
+  
+}
+#forgetP:hover{
+  background-color: #01021f;
+  color: #fff;
+  border-radius: 5px;
+}
+
+#acc_delete{
+  border: 2px solid rgb(141, 0, 0);
+  color: rgb(141, 0, 0);
+}
+.delete_acc_confirm{
+  color: rgb(141, 0, 0);
+  font-family: 'arimo';
+  font-size: 500;
+}
+.acc_delete {
+
+  background-color: rgb(141, 0, 0);
+}
+.delete_acc {
+  font-family: 'Oswald';
 }
 
 @media only screen and (min-width: 64em){
@@ -491,5 +524,9 @@ tbody > tr {
   width:60% ;
   margin: 4rem auto;
   text-align: center;
+  }
+
+  .form_done{
+    width: 45%;
   }
 }

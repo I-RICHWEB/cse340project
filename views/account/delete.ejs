@@ -1,0 +1,40 @@
+<!-- Inserting the main content headings  -->
+<!-- And making the title value as our h1 value with an if statement. -->
+<% if (title) { %>
+<h1 class="page_head"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+
+<%- messages() %>
+
+<!-- This is to display a validation failed messages -->
+ <% if (errors) { %>
+  <ul class="notice failed">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<div id="confirm_account_delete" class="form_holder">
+    <form id="confirm_delete_form" action="/account/delete" method="post">
+
+        <h2 class="delete_acc">Confirm You Want to Delete this Account</h2>
+
+        <p>Please enter the delete confirmation words in the input box below, 
+            <span class="delete_acc_confirm"><strong>I want to delete this account: <%= locals.account_firstname %> <%= locals.account_lastname %></strong></span> 
+            and click the delete account button to proceed.</p>
+
+        <label for="text" class="form label">Enter the delete confirmation information details:</label>
+        <input type="text" id="text" class="form input" name="delete_confirmation" required>
+
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>" />
+
+        <input type="submit" id="submit" class="form_done acc_delete" name="submit_button" value="Delete Account">
+    </form>
+
+
+</div>

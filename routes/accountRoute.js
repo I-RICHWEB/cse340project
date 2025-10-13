@@ -60,6 +60,36 @@ router.post(
   utilities.handleErrors(accountController.changePassword)
 );
 
+// This is the route to change the password when the user have forgotten the password.
+router.get("/forget", utilities.handleErrors(accountController.buildForgetPassword));
+
+// The route to confirm the email of the user who wants to change his password.
+router.post("/confirm", 
+  regValidate.confirmEmailRule(),
+  regValidate.checkConfirmEmail,
+  utilities.handleErrors(accountController.confirmUserEmail)
+)
+
+// This is the post router to confirm the user email if it exist in the database.
+router.post("/change", 
+  regValidate.forgotPasswordRules(),
+  regValidate.checkForgotNewPassword,
+  utilities.handleErrors(accountController.changeForgotPassword)
+)
+
+// The route to delete the user account.
+router.get("/delete/:accountId", utilities.handleErrors(accountController.buildDeleteAccountView))
+
+// The post route to initiate the account delete process.
+router.post("/delete",
+  regValidate.confirmDeleteAccountRule(),
+  regValidate.checkDeleteAccountDetails,
+  utilities.handleErrors(accountController.deleteAccount)
+)
+
+
+
+// This is to logout a user that is signed in.
 router.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
 module.exports = router;

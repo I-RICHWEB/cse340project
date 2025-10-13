@@ -137,6 +137,9 @@ async function accountLogin(req, res) {
   }
 }
 
+/* ****************************************
+ *  Deliver account management view
+ * *************************************** */
 async function buildManagementView(req, res) {
   let nav = await utilities.getNav();
   res.render("account/index", {
@@ -215,17 +218,17 @@ async function changePassword(req, res, next) {
       // regular password and cost (salt is generated automatically)
       hashedPassword = await bcrypt.hashSync(account_password, 10);
     } catch (error) {
-        req.flash(
-          "notice failed",
-          "Sorry, there was an error processing the password update."
-        );
-        res.status(500).render("account/update", {
-          title: "Updata Your Account",
-          nav,
-          errors: null,
-          account_id,
-        });
-      }
+      req.flash(
+        "notice failed",
+        "Sorry, there was an error processing the password update."
+      );
+      res.status(500).render("account/update", {
+        title: "Updata Your Account",
+        nav,
+        errors: null,
+        account_id,
+      });
+    }
 
     const changePassword = await accountModel.updatePasswordById(
       account_id,
@@ -238,17 +241,14 @@ async function changePassword(req, res, next) {
       );
       res.redirect("/account/");
     } else {
-        req.flash(
-          "notice failed",
-          "Sorry, your account password update failed."
-        );
-        res.status(501).render("account/update", {
-          title: "Updata Your Account",
-          nav,
-          errors: null,
-          account_id,
-        });
-      }
+      req.flash("notice failed", "Sorry, your account password update failed.");
+      res.status(501).render("account/update", {
+        title: "Updata Your Account",
+        nav,
+        errors: null,
+        account_id,
+      });
+    }
   } catch (error) {
     throw new Error("Password update failed at hashing");
   }
@@ -258,19 +258,167 @@ async function changePassword(req, res, next) {
  *  Process account logout
  * *************************************** */
 async function accountLogout(req, res) {
-   if (req.cookies.jwt){
+  if (req.cookies.jwt) {
+    res.clearCookie("jwt");
 
-    res.clearCookie("jwt")
-
-    req.flash("notice successful", "You have successfully logged out.")
-    return res.redirect("/")
-
-  }else {
-    req.flash("notice failed", "Please log in.")
-    return res.redirect("/account/login")
+    req.flash("notice successful", "You have successfully logged out.");
+    return res.redirect("/");
+  } else {
+    req.flash("notice failed", "Please log in.");
+    return res.redirect("/account/login");
   }
 }
 
+/* ****************************************
+ *  This is to build the forget password view
+ * *************************************** */
+async function buildForgetPassword(req, res) {
+  let nav = await utilities.getNav();
+  res.render("account/forget", {
+    title: "Change Password",
+    nav,
+    errors: null,
+    account_id: null,
+  });
+}
+
+/* ****************************************
+ *  Process confirm user email before the change password takes effect.
+ * *************************************** */
+async function confirmUserEmail(req, res) {
+  let nav = await utilities.getNav();
+  const { account_email } = req.body;
+
+  const emailResult = await accountModel.getAccountByEmail(account_email);
+
+  if (emailResult) {
+    req.flash(
+      "notice successful",
+      `Welcome, ${emailResult.account_firstname}. Please proceed to input your new password.`
+    );
+    res.status(201).render("account/forget", {
+      title: "Change Password",
+      nav,
+      errors: null,
+      account_email,
+      account_id: emailResult.account_id,
+    });
+  } else {
+    req.flash(
+      "notice failed",
+      "Sorry, the email confirmation process failed. Check the email for any error and restart the process."
+    );
+    res.status(501).render("account/forget", {
+      title: "Change Password",
+      nav,
+      errors: null,
+      account_email,
+    });
+  }
+}
+
+/* ****************************************
+ *  Process the account forgot password update
+ * *************************************** */
+async function changeForgotPassword(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_id, account_password } = req.body;
+  try {
+    // Hash the password before storing
+    let hashedPassword;
+    try {
+      // regular password and cost (salt is generated automatically)
+      hashedPassword = await bcrypt.hashSync(account_password, 10);
+    } catch (error) {
+      req.flash(
+        "notice failed",
+        "Sorry, there was an error processing the password update."
+      );
+      res.status(500).render("account/forget", {
+        title: "Change Password",
+        nav,
+        errors: null,
+        account_id,
+      });
+    }
+
+    const changePassword = await accountModel.updatePasswordById(
+      account_id,
+      hashedPassword
+    );
+    if (changePassword) {
+      req.flash(
+        "notice successful",
+        `Your account password was successfully changed. Please login using the new password`
+      );
+      res.redirect("/account/login");
+    } else {
+      req.flash(
+        "notice failed",
+        "Sorry, there was an error in the process to change your password."
+      );
+      res.status(501).render("account/forget", {
+        title: "Change Password",
+        nav,
+        errors: null,
+        account_id,
+      });
+    }
+  } catch (error) {
+    throw new Error("Forgot password update failed at hashing");
+  }
+}
+
+/* ****************************************
+ *  This is to build the account delete confirmation view
+ * *************************************** */
+async function buildDeleteAccountView(req, res) {
+  let nav = await utilities.getNav();
+  const account_id = req.params.accountId;
+  const accountDetails = await accountModel.getAccountById(account_id);
+
+  res.render("account/delete", {
+    title: "Delete Account",
+    nav,
+    errors: null,
+    account_id: account_id,
+    account_firstname: accountDetails.account_firstname,
+    account_lastname: accountDetails.account_lastname,
+  });
+}
+
+/* ****************************************
+ *  Process the delete account
+ * *************************************** */
+async function deleteAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_id } = req.body;
+  const accountData = accountModel.getAccountById(account_id);
+  const deleteResult = await accountModel.deleteAccountById(account_id);
+  if (deleteResult) {
+    if (req.cookies.jwt) {
+      res.clearCookie("jwt");
+    } else {
+      req.flash("notice failed", "The Deleted account is still logged in.");
+    }
+
+    req.flash("notice successful", `The account was successfully deleted.`);
+    res.redirect("/");
+  } else {
+    req.flash(
+      "notice failed",
+      "Sorry, the account delete process failed. Try again."
+    );
+    res.status(501).render("account/delete", {
+      title: "Delete Account",
+      nav,
+      errors: null,
+      account_id: accountData.account_id,
+      account_firstname: accountData.account_firstname,
+      account_lastname: accountData.account_lastname,
+    });
+  }
+}
 
 module.exports = {
   buildLogin,
@@ -282,4 +430,9 @@ module.exports = {
   updateProfileInfo,
   changePassword,
   accountLogout,
+  buildForgetPassword,
+  confirmUserEmail,
+  changeForgotPassword,
+  buildDeleteAccountView,
+  deleteAccount,
 };
